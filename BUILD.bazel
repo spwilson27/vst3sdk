@@ -1,0 +1,18 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])  # Steinberg VST3 SDK License
+
+# Exposes the Steinberg VST3 SDK plug-in interfaces (pluginterfaces/) as a
+# C++ header-only library so that downstream targets can resolve
+# #include "pluginterfaces/base/funknown.h" and related headers required by
+# ARAVST3.h.
+#
+# The `includes = ["."]` setting makes the package directory (src/vendored/vst3sdk)
+# an include root, so `pluginterfaces/base/funknown.h` resolves correctly.
+cc_library(
+    name = "vst3_pluginterfaces",
+    hdrs = glob(["pluginterfaces/**/*.h"]),
+    includes = ["."],
+)
